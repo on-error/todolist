@@ -15,15 +15,16 @@
                 <input type="submit" value="ADD">
             </div>
         </form>
-        <input type="button" value="Delete Record">
-        <input type="button" value="Delete All">
+        <a href="{% url 'deletecompleted' %}">
+        <input type="button" value="Delete completed"></a>
+        <a href="{% url 'deleteAll' %}"><input type="button" value="Delete All"></a>
 
         <ul>
             {% for todoilist in todo_items %}
                 {% if todolist.completed %}
                     <li style="color: red;">{{todolist.text}}</li>
                 {% else %}
-                    <a href="{% url 'completed' todolist.id %}"><li style="color: green;">{{todolist.text}}</li></a>
+                    <a href="#"><li style="color: green;">{{todolist.text}}</li></a>
                 {% endif %}
             {% endfor %}
 

@@ -1,26 +1,32 @@
 {% load static %}
 <!DOCTYPE html>
 <html>
-<head>
-<title>new file</title>
-<link rel="stylesheet" href="{% static 'todolist/css.css' %}">
-</head>
+    <head>
+        <title>new file</title>
+        <link rel="stylesheet" href="{% static 'todolist/css.css' %}">
+    </head>
 <body>
-<h1> What to do today</h1>
-<input type="text" name="todo" placeholder="Enter work to do">
-<input type="button" value="ADD">
-<input type="button" value="Delete Record">
-<input type="button" value="Delete All">
+        <h1> What to do today</h1>
 
-<ul>
-     {% for todoilist in todo_items %}
-        {% if todolist.completed %}
-            <li style="color: red;">{{todolist.text}}</li>
-        {% else %}
-            <li style="color: green;">{{todolist.text}}</li>
-        {% endif %}
-    {% endfor %}
+        <form role="form" method="POST" action="{% url 'add' %}">
+            {% csrf_token %}
+            <div>
+                {{form.text}}
+                <input type="submit" value="ADD">
+            </div>
+        </form>
+        <input type="button" value="Delete Record">
+        <input type="button" value="Delete All">
 
-</ul>
+        <ul>
+            {% for todoilist in todo_items %}
+                {% if todolist.completed %}
+                    <li style="color: red;">{{todolist.text}}</li>
+                {% else %}
+                    <a href="{% url 'completed' todolist.id %}"><li style="color: green;">{{todolist.text}}</li></a>
+                {% endif %}
+            {% endfor %}
+
+        </ul>
 </body>
 </html>
